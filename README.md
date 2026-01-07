@@ -1,4 +1,4 @@
-# 🧭 Quest I — Build the Character API  
+# 🧭 Quest 1 — Build the Character API  
 ## Part 1: Getting Things Working
 
 Welcome to **Quest 1, Part 1**.  
