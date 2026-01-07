@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "name": "Aria Stormblade",
+        "health": 95,
+        "attributes": {
+            "Might": 90,
+            "Agility": 80,
+            "Vitality": 60,
+            "Insight": 75,
+            "Arcana": 40,
+            "Presence": 85,
+            "might": 99
+        }
+    },
+    {
+        "id": 2,
+        "name": "Kael Nightwind",
+        "health": 88,
+        "attributes": {
+            "Might": 65,
+            "Agility": 85,
+            "Vitality": 58,
+            "Insight": 72,
+            "Arcana": 55,
+            "Presence": 78
+        }
+    }
+]
