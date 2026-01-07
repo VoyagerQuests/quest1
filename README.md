@@ -1,108 +1,73 @@
+# 🧭 Quest I — Build the Character API  
+## Part 1: Getting Things Working
 
-
-**Quest I: Build the Character API - Part 1**
-
-Welcome to Quest 1 part 1. In this quest we are going to build out the quest with a focus on getting things to work.
-Github Location: https://github.com/VoyagerQuests/quest1
-Branch: 
-
-**Objective:**  
- Your mission is to create a backend system in **Python** that manages a set of **characters** and their **attributes**. This will be the first building block of your adventure world — the **Character API** — a registry where all heroes, villains, and wanderers are stored.
+Welcome to **Quest 1, Part 1**.  
+In this quest, we focus on **building a working foundation**—getting the Character API up and running before refining structure and design in later parts.
 
 ---
 
-### **⚙️ Requirements**
+### 📦 Quest Resources
 
-#### **1\. Create a REST API**
+- **GitHub Repository:** https://github.com/VoyagerQuests/quest1
+- **Branch:** `part1`
 
-Use **FastAPI** to build a simple backend with these endpoints:
+---
+
+## 🧩 Quest Overview
+
+### 🎯 Objective
+
+Your mission is to create a backend system in **Python** that manages a set of **characters** and their **attributes**.
+
+This system—the **Character API**—will serve as the **registry of your adventure world**, storing heroes, villains, and wanderers alike.
+
+---
+
+## ⚙️ Requirements
+
+### 1️⃣ Create a REST API
+
+Use **FastAPI** to build a backend with the following endpoints:
 
 | Method | Endpoint | Description |
-| ----- | ----- | ----- |
-| `GET` | `/characters` | List all characters with their health and attributes |
+|------|---------|-------------|
+| `GET` | `/characters` | List all characters with health and attributes |
 | `GET` | `/characters/{id}` | Retrieve a single character by ID |
-| `PUT` | `/characters/{id}/attributes/{attribute_name}` | Update a specific attribute’s value |
 | `POST` | `/characters` | Add a new character |
-| `DELETE` | `/characters/{id}` | Delete a character (optional) |
+| `PUT` | `/characters/{id}/attributes/{attribute_name}` | Update a specific attribute |
+| `DELETE` | `/characters/{id}` | Delete a character *(optional)* |
 
 ---
 
-#### 
+### 2️⃣ Character Data Model
 
-#### **2\. Character Data Model**
-
-Each character must include the following:
+Each character must include:
 
 | Field | Type | Description |
-| ----- | ----- | ----- |
-| `id` | int | Unique identifier |
-| `name` | string | Character’s name |
-| `health` | int (0–100) | Health level |
-| `attributes` | dictionary | Key-value pairs of the six attributes below |
+|------|------|-------------|
+| `id` | `int` | Unique identifier |
+| `name` | `string` | Character name |
+| `health` | `int` (0–100) | Health level |
+| `attributes` | `dict` | Attribute key–value pairs |
 
-##### **Attributes**
+#### 🧬 Attributes
 
-Each attribute has a **score (0–100)** and a **description**.
+Each attribute has a **score (0–100)** and a descriptive purpose.
 
-| Attribute | Description | Examples of Use |
-| ----- | ----- | ----- |
-| **Might** | Physical power and raw strength | Melee damage, carrying capacity, intimidation |
-| **Agility** | Speed, reflexes, coordination | Dodging, accuracy, stealth |
-| **Vitality** | Endurance and resistance | Health points, poison resistance |
-| **Insight** | Perception and pattern recognition | Detecting traps, lies |
-| **Arcana** | Knowledge of mystical or technical arts | Spell power, crafting |
-| **Presence** | Force of personality and influence | Persuasion, leadership |
-
----
-
-#### **3\. Data Storage (File-Based)**
-
-Store all characters in a **JSON file** called `characters.json`.
-
-Whenever characters are added, updated, or deleted:
-
-* Read from the file.  
-* Modify the data.  
-* Write the updated data back to the file.
-
-Example file content:
-
-`[`  
-  `{`  
-    `"id": 1,`  
-    `"name": "Aria Stormblade",`  
-    `"health": 95,`  
-    `"attributes": {`  
-      `"Might": 70,`  
-      `"Agility": 80,`  
-      `"Vitality": 60,`  
-      `"Insight": 75,`  
-      `"Arcana": 40,`  
-      `"Presence": 85`  
-    `}`  
-  `}`  
-`]`
+| Attribute | Description | Example Uses |
+|---------|-------------|--------------|
+| **Might** | Physical strength | Melee damage, intimidation |
+| **Agility** | Speed and coordination | Dodging, stealth |
+| **Vitality** | Endurance and resilience | Health, poison resistance |
+| **Insight** | Perception and awareness | Detecting traps or lies |
+| **Arcana** | Mystical or technical knowledge | Spellcasting, crafting |
+| **Presence** | Influence and charisma | Persuasion, leadership |
 
 ---
 
-#### **4\. Bonus Challenges**
+### 3️⃣ Data Storage (File-Based)
 
-* Add **validation** (e.g., health and attributes must stay between 0–100).  
-* Add a **search** parameter to `/characters` to filter by name.  
-* Use **Pydantic models** for type safety.  
-* Return proper **HTTP status codes** (e.g., 404 if a character isn’t found).  
-* Add **automatic ID assignment** for new characters.
+Store all characters in a JSON file named:
 
----
-
-### 
-
-### **🧠 Learning Outcomes**
-
-By completing this quest, you will learn:
-
-* How to design and expose REST APIs in Python  
-* How to read and write structured data using files  
-* Data modeling and validation  
-* CRUD operations  
-* JSON file persistence  
+```text
+characters.json
