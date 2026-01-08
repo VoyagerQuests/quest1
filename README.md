@@ -1,11 +1,11 @@
 # 🧭 Quest 1 — Build the Character API  
-## Part 1: Getting Things Working
+## Episode 1: Entering the Realm of Clean Architecture
 
-Welcome to **Quest 1, Part 1**.  
+Welcome to **Quest 1, Episode 1**.  
 In this quest, we focus on **building a working foundation**—getting the Character API up and running before refining structure and design in later parts.
 
-Try to implement Quest 1 Part 1.
-Check out the Part 1 walkthrough video on https://www.youtube.com/@VoyagerQuests
+Try to implement Quest 1 Episode 1.
+Check out the Episode 1 walkthrough video on https://www.youtube.com/@VoyagerQuests
 To run this code clone the repository and enter the quest1 folder.
 ### ⚙️ Create the Project Using `uv`
 
