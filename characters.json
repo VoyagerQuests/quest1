@@ -1,28 +1,41 @@
 [
-  {
-    "id": "char_a1B2c3D4e5F6",
-    "name": "Aria Stormblade",
-    "health": 95,
-    "attributes": {
-      "might": 90,
-      "agility": 80,
-      "vitality": 60,
-      "insight": 75,
-      "arcana": 40,
-      "presence": 85
+    {
+        "name": "Aria Stormblade",
+        "attributes": {
+            "might": 90,
+            "agility": 80,
+            "vitality": 60,
+            "insight": 75,
+            "arcana": 40,
+            "presence": 85
+        },
+        "id": "char_a1B2c3D4e5F6",
+        "health": 95
+    },
+    {
+        "name": "Kael Nightwind",
+        "attributes": {
+            "might": 65,
+            "agility": 85,
+            "vitality": 58,
+            "insight": 72,
+            "arcana": 55,
+            "presence": 78
+        },
+        "id": "char_G7h8I9j0K1l2",
+        "health": 88
+    },
+    {
+        "name": "Example123456",
+        "attributes": {
+            "might": 50,
+            "agility": 50,
+            "vitality": 50,
+            "insight": 50,
+            "arcana": 50,
+            "presence": 50
+        },
+        "id": "char_gQ0sk55qGnsQ",
+        "health": 100
     }
-  },
-  {
-    "id": "char_G7h8I9j0K1l2",
-    "name": "Kael Nightwind",
-    "health": 88,
-    "attributes": {
-      "might": 65,
-      "agility": 85,
-      "vitality": 58,
-      "insight": 72,
-      "arcana": 55,
-      "presence": 78
-    }
-  }
 ]

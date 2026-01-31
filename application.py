@@ -1,37 +1,76 @@
-from dto import CreateCharacterRequestDTO, CreateCharacterResponseDTO, UpdateCharacterAttributesRequestDTO, UpdateCharacterResponseDTO
-from domain import Character, CharacterAttributes
-from nanoid import generate
+# application.py
 from enum import StrEnum
+from typing import Iterable
 
-ID_SIZE = 16
+from nanoid import generate
+
+from dto import (
+    CreateCharacterRequestDTO,
+    CreateCharacterResponseDTO,
+    UpdateCharacterAttributesRequestDTO,
+    UpdateCharacterResponseDTO,
+)
+from domain import Character, CharacterAttributes, CharacterID
+from repository import CharacterRepositoryJsonFile
+
+ID_SIZE = 12  # must match CharacterID pattern (^char_.{12}$)
+
 
 class IDPrefix(StrEnum):
     CHARACTER = "char"
+
 
 def generate_id(prefix: IDPrefix) -> str:
     return f"{prefix}_{generate(size=ID_SIZE)}"
 
 
-def create_character(
-    req: CreateCharacterRequestDTO,
-) -> CreateCharacterResponseDTO:
-    character = Character(
-        id=generate_id(IDPrefix.CHARACTER),
-        name=req.name,
-        attributes=CharacterAttributes.model_validate(req.attributes)
-    )
+class Application:
+    def __init__(self, repo: CharacterRepositoryJsonFile) -> None:
+        self.repo = repo
 
-    
-    character = Character()
-    return CreateCharacterResponseDTO(
-        id=generate_id(IDPrefix.CHARACTER),
-        name=req.name,
-        attributes=CharacterAttributes(
-            might=req.attributes.might,
-            agility=req.attributes.agility,
-            vitality=req.attributes.vitality,
-            insight=req.attributes.insight,
-            arcana=req.attributes.arcana,
-            presence=req.attributes.presence,
-        ),
-    )
+    def create_character(self, req: CreateCharacterRequestDTO) -> CreateCharacterResponseDTO:
+        new_id: CharacterID = generate_id(IDPrefix.CHARACTER)  # type: ignore[assignment]
+
+        character = Character(
+            id=new_id,
+            name=req.name,
+            health=100,
+            attributes=CharacterAttributes.model_validate(req.attributes.model_dump()),
+        )
+
+        self.repo.add(character)
+
+        return CreateCharacterResponseDTO(
+            id=character.id,
+            name=character.name,
+            attributes=req.attributes,
+        )
+
+    def update_character_attributes(
+        self,
+        character_id: CharacterID,
+        req: UpdateCharacterAttributesRequestDTO,
+    ) -> UpdateCharacterResponseDTO:
+        character = self.repo.get_by_id(character_id)
+        if character is None:
+            raise KeyError("Character not found")
+
+        updated = character.model_copy(
+            update={"attributes": CharacterAttributes.model_validate(req.model_dump())}
+        )
+
+        self.repo.update(updated)
+
+        return UpdateCharacterResponseDTO(
+            id=updated.id,
+            name=updated.name,
+            attributes=req,
+        )
+
+    def get_characters(self, character_id: CharacterID | None = None) -> Iterable[Character]:
+        if character_id is not None:
+            character = self.repo.get_by_id(character_id)
+            if character is None:
+                raise KeyError("Character not found")
+            return [character]
+        return self.repo.list_all()

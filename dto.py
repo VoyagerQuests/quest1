@@ -1,3 +1,4 @@
+# dto.py
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 from domain import (
@@ -9,7 +10,6 @@ from domain import (
     CharacterPresence,
     CharacterName,
     CharacterID,
-    CharacterAttributes,
 )
 
 
@@ -25,14 +25,6 @@ class DTO(BaseModel):
         from_attributes=True,
     )
 
-
-class CharacterBaseDTO(DTO):
-    """Data Transfer Object for character base information"""
-
-    name: CharacterName
-    attributes: CharacterAttributesDTO
-
-
 class CharacterAttributesDTO(DTO):
     """Data Transfer Object for character's attributes"""
 
@@ -42,6 +34,12 @@ class CharacterAttributesDTO(DTO):
     insight: CharacterInsight
     arcana: CharacterArcana
     presence: CharacterPresence
+
+class CharacterBaseDTO(DTO):
+    """Data Transfer Object for character base information"""
+
+    name: CharacterName
+    attributes: CharacterAttributesDTO
 
 
 class CreateCharacterRequestDTO(CharacterBaseDTO):
