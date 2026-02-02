@@ -7,10 +7,11 @@ from application import Application
 from dto import (
     CreateCharacterRequestDTO,
     CreateCharacterResponseDTO,
+    CharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
 )
-from domain import CharacterID, Character
+from domain import CharacterID
 from repository import CharacterRepositoryJsonFile
 
 
@@ -39,8 +40,11 @@ def update_character_attributes(
     return _app.update_character_attributes(character_id, payload)
 
 
-@app.get("/characters", response_model=list[Character])
+@app.get("/characters", response_model=list[CharacterResponseDTO])
 def get_characters(
     character_id: Annotated[CharacterID | None, Query()] = None,
-) -> list[Character]:
-    return list(_app.get_characters(character_id))
+) -> list[CharacterResponseDTO]:
+    return [
+        CharacterResponseDTO.model_validate(character)
+        for character in _app.get_characters(character_id)
+    ]

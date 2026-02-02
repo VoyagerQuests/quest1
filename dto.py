@@ -10,6 +10,7 @@ from domain import (
     CharacterPresence,
     CharacterName,
     CharacterID,
+    CharacterHealth,
 )
 
 
@@ -41,7 +42,6 @@ class CharacterBaseDTO(DTO):
     name: CharacterName
     attributes: CharacterAttributesDTO
 
-
 class CreateCharacterRequestDTO(CharacterBaseDTO):
     """Data Transfer Object for creating a new character"""
 
@@ -52,12 +52,23 @@ class CreateCharacterResponseDTO(CharacterBaseDTO):
     """Data Transfer Object for returning character data"""
 
     id: CharacterID
+    health: CharacterHealth
+
+
+class CharacterResponseDTO(CreateCharacterResponseDTO):
+    """Data Transfer Object for returning character data"""
+
+    pass
 
 
 class UpdateCharacterAttributesRequestDTO(CharacterAttributesDTO):
     """Data Transfer Object for updating a character's attribute"""
-
-    pass
+    might: CharacterMight | None = None
+    agility: CharacterAgility | None = None
+    vitality: CharacterVitality | None = None
+    insight: CharacterInsight | None = None
+    arcana: CharacterArcana | None = None
+    presence: CharacterPresence | None = None
 
 
 class UpdateCharacterResponseDTO(CreateCharacterResponseDTO):

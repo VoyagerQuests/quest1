@@ -37,5 +37,44 @@
         },
         "id": "char_gQ0sk55qGnsQ",
         "health": 100
+    },
+    {
+        "name": "stringstri",
+        "attributes": {
+            "might": 100,
+            "agility": 100,
+            "vitality": 100,
+            "insight": 100,
+            "arcana": 100,
+            "presence": 100
+        },
+        "id": "char_XbmvX3OvfWov",
+        "health": 100
+    },
+    {
+        "name": "stringstri",
+        "attributes": {
+            "might": 100,
+            "agility": 100,
+            "vitality": 100,
+            "insight": 100,
+            "arcana": 100,
+            "presence": 100
+        },
+        "id": "char_1AAjXjK_yJro",
+        "health": 100
+    },
+    {
+        "name": "stringstri",
+        "attributes": {
+            "might": 100,
+            "agility": 100,
+            "vitality": 100,
+            "insight": 100,
+            "arcana": 100,
+            "presence": 100
+        },
+        "id": "char_fckTPe8wQwLi",
+        "health": 100
     }
 ]

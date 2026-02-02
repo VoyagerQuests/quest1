@@ -9,6 +9,7 @@ from dto import (
     CreateCharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
+    CharacterAttributesDTO
 )
 from domain import Character, CharacterAttributes, CharacterID
 from repository import CharacterRepositoryJsonFile
@@ -43,6 +44,7 @@ class Application:
         return CreateCharacterResponseDTO(
             id=character.id,
             name=character.name,
+            health=character.health,
             attributes=req.attributes,
         )
 
@@ -56,7 +58,12 @@ class Application:
             raise KeyError("Character not found")
 
         updated = character.model_copy(
-            update={"attributes": CharacterAttributes.model_validate(req.model_dump())}
+            update={
+                "attributes": CharacterAttributes.model_validate(
+                    character.attributes.model_dump()
+                    | req.model_dump(exclude_unset=True)
+                )
+            }
         )
 
         self.repo.update(updated)
@@ -64,7 +71,8 @@ class Application:
         return UpdateCharacterResponseDTO(
             id=updated.id,
             name=updated.name,
-            attributes=req,
+            health=updated.health,
+            attributes=CharacterAttributesDTO.model_validate(updated.attributes),
         )
 
     def get_characters(self, character_id: CharacterID | None = None) -> Iterable[Character]:
