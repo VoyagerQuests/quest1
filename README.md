@@ -60,59 +60,6 @@ Once the project is running you can access the docs at:
 
 ## 🧩 Quest Overview
 
-### 🎯 Objective
+### 🎯 Episode 1
 
-Your mission is to create a backend system in **Python** that manages a set of **characters** and their **attributes**.
-
-This system—the **Character API**—will serve as the **registry of your adventure world**, storing heroes, villains, and wanderers alike.
-
----
-
-## ⚙️ Requirements
-
-### 1️⃣ Create a REST API
-
-Use **FastAPI** to build a backend with the following endpoints:
-
-| Method | Endpoint | Description |
-|------|---------|-------------|
-| `GET` | `/characters` | List all characters with health and attributes |
-| `GET` | `/characters/{id}` | Retrieve a single character by ID |
-| `POST` | `/characters` | Add a new character |
-| `PUT` | `/characters/{id}/attributes/{attribute_name}` | Update a specific attribute |
-| `DELETE` | `/characters/{id}` | Delete a character *(optional)* |
-
----
-
-### 2️⃣ Character Data Model
-
-Each character must include:
-
-| Field | Type | Description |
-|------|------|-------------|
-| `id` | `int` | Unique identifier |
-| `name` | `string` | Character name |
-| `health` | `int` (0–100) | Health level |
-| `attributes` | `dict` | Attribute key–value pairs |
-
-#### 🧬 Attributes
-
-Each attribute has a **score (0–100)** and a descriptive purpose.
-
-| Attribute | Description | Example Uses |
-|---------|-------------|--------------|
-| **Might** | Physical strength | Melee damage, intimidation |
-| **Agility** | Speed and coordination | Dodging, stealth |
-| **Vitality** | Endurance and resilience | Health, poison resistance |
-| **Insight** | Perception and awareness | Detecting traps or lies |
-| **Arcana** | Mystical or technical knowledge | Spellcasting, crafting |
-| **Presence** | Influence and charisma | Persuasion, leadership |
-
----
-
-### 3️⃣ Data Storage (File-Based)
-
-Store all characters in a JSON file named:
-
-```text
-characters.json
+[Learn about Quest 1 Episode 1](READQUEST1.md)
