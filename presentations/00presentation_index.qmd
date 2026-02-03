@@ -1,5 +1,5 @@
 ---
-title: "Mastering Python Type Hints"
+title: "Quest 1 Episode 2: Python Type Hints"
 format:
   revealjs:
     width: 1600
@@ -15,14 +15,377 @@ format:
 theme: dark
 ---
 
-# Foundational Types and Collections
+# Domain Models and Annotated Types
 
-# Unions, Optional and Collection Type ABCs
+# Data Transfer Objects (DTOs)
 
-# Literal & Typeddict
+# Repository
 
-# TypedDict | Literal to Pydantic
+# Application Use-Cases
 
-# Behavioral and Generic Typing
+# API
 
-# What has changed in Python 3.14
+# CLI
+
+---
+
+# Domain Models and Annotated Types domain.py
+
+```{python}
+#| code-line-numbers: "1-3|4-7|9-13|4-25|28-41"
+from typing import Annotated
+from pydantic import BaseModel, Field, StringConstraints
+
+type CharacterID = Annotated[
+    str,
+    Field(description="A unique identifier for a character", pattern=r"^char_.{12}$"),
+]
+
+type CharacterName = Annotated[
+    str,
+    StringConstraints(min_length=10, max_length=100),
+    Field(description="A character's name"),
+]
+
+type CharacterHealth = Annotated[
+    int,
+    Field(description="A character's current health", ge=0, le=100),
+]
+
+type CharacterMight = Annotated[int, Field(ge=0, le=100)]
+type CharacterAgility = Annotated[int, Field(ge=0, le=100)]
+type CharacterVitality = Annotated[int, Field(ge=0, le=100)]
+type CharacterInsight = Annotated[int, Field(ge=0, le=100)]
+type CharacterArcana = Annotated[int, Field(ge=0, le=100)]
+type CharacterPresence = Annotated[int, Field(ge=0, le=100)]
+
+
+class CharacterAttributes(BaseModel):
+    might: CharacterMight
+    agility: CharacterAgility
+    vitality: CharacterVitality
+    insight: CharacterInsight
+    arcana: CharacterArcana
+    presence: CharacterPresence
+
+
+class Character(BaseModel):
+    id: CharacterID
+    name: CharacterName
+    health: CharacterHealth
+    attributes: CharacterAttributes
+
+```
+
+# Data Transfer Objects (DTOs) dto.py
+```{python}
+#| code-line-numbers: "1-14|17-27|29-37|39-44|46-49|52-56|58-61|64-72|75-78"
+# dto.py
+from pydantic import BaseModel, ConfigDict
+from pydantic.alias_generators import to_camel
+from domain import (
+    CharacterMight,
+    CharacterAgility,
+    CharacterVitality,
+    CharacterInsight,
+    CharacterArcana,
+    CharacterPresence,
+    CharacterName,
+    CharacterID,
+    CharacterHealth,
+)
+
+
+# *************** DTOs
+class DTO(BaseModel):
+    """Base class for Data Transfer Objects"""
+
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        extra="forbid",
+        validate_assignment=True,
+        populate_by_name=True,
+        from_attributes=True,
+    )
+
+class CharacterAttributesDTO(DTO):
+    """Data Transfer Object for character's attributes"""
+
+    might: CharacterMight
+    agility: CharacterAgility
+    vitality: CharacterVitality
+    insight: CharacterInsight
+    arcana: CharacterArcana
+    presence: CharacterPresence
+
+class CharacterBaseDTO(DTO):
+    """Data Transfer Object for character base information"""
+
+    name: CharacterName
+    health: CharacterHealth = 100
+    attributes: CharacterAttributesDTO
+
+class CreateCharacterRequestDTO(CharacterBaseDTO):
+    """Data Transfer Object for creating a new character"""
+
+    pass
+
+
+class CreateCharacterResponseDTO(CharacterBaseDTO):
+    """Data Transfer Object for returning character data"""
+
+    id: CharacterID
+
+
+class CharacterResponseDTO(CreateCharacterResponseDTO):
+    """Data Transfer Object for returning character data"""
+
+    pass
+
+
+class UpdateCharacterAttributesRequestDTO(DTO):
+    """Data Transfer Object for updating a character's attribute"""
+
+    might: CharacterMight | None = None
+    agility: CharacterAgility | None = None
+    vitality: CharacterVitality | None = None
+    insight: CharacterInsight | None = None
+    arcana: CharacterArcana | None = None
+    presence: CharacterPresence | None = None
+
+
+class UpdateCharacterResponseDTO(CreateCharacterResponseDTO):
+    """Data Transfer Object for returning updated character data"""
+
+    pass
+
+```
+
+# Repository repository.py
+
+```{python}
+#| code-line-numbers: "1-9|12|15-16|19-20|22-23|25-27|29-30|32-35|37-46|48-51|53-60|62-67|69-71|73-75"
+# repository.py
+from pathlib import Path
+from typing import Final
+import json
+
+from pydantic import TypeAdapter, ValidationError
+
+from domain import Character, CharacterID, CharacterHealth
+from dto import CharacterBaseDTO
+
+
+CHARACTERS_FILE: Final = Path("characters.json")
+
+
+class CharacterSchema(CharacterBaseDTO):
+    id: CharacterID
+
+
+class CharacterRepositoryJsonFile:
+    _adapter = TypeAdapter(list[CharacterSchema])
+
+    def __init__(self, file_path: Path = CHARACTERS_FILE) -> None:
+        self.file_path = file_path
+
+    def list_all(self) -> list[Character]:
+        schemas = self._read_validated()
+        return [Character.model_validate(s.model_dump()) for s in schemas]
+
+    def get_by_id(self, character_id: CharacterID) -> Character | None:
+        return next((c for c in self.list_all() if c.id == character_id), None)
+
+    def add(self, character: Character) -> None:
+        schemas = self._read_validated()
+        schemas.append(CharacterSchema.model_validate(character))
+        self._write_validated(schemas)
+
+    def update(self, character: Character) -> None:
+        schemas = self._read_validated()
+        updated = CharacterSchema.model_validate(character)
+
+        for i, s in enumerate(schemas):
+            if s.id == updated.id:
+                schemas[i] = updated
+                break
+
+        self._write_validated(schemas)
+
+    def delete(self, character_id: CharacterID) -> None:
+        schemas = self._read_validated()
+        schemas = [s for s in schemas if s.id != character_id]
+        self._write_validated(schemas)
+
+    def _read_raw(self) -> list[dict]:
+        if not self.file_path.exists():
+            return []
+        with self.file_path.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+        if not isinstance(data, list):
+            raise ValueError("characters.json must contain a JSON array")
+        return data
+
+    def _read_validated(self) -> list[CharacterSchema]:
+        raw = self._read_raw()
+        try:
+            return self._adapter.validate_python(raw)
+        except ValidationError as e:
+            raise ValueError(f"Invalid characters.json: {e}") from e
+
+    def _write_validated(self, schemas: list[CharacterSchema]) -> None:
+        raw = [s.model_dump(mode="json", by_alias=True) for s in schemas]
+        self._write_raw(raw)
+
+    def _write_raw(self, data: list[dict]) -> None:
+        with self.file_path.open("w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+
+```
+
+# Application Use-Cases application.py
+
+```{python}
+#| code-line-numbers: "1-15|17-25|28-30|32-49|51-76|78-84"
+# application.py
+from enum import StrEnum
+from typing import Iterable
+
+from nanoid import generate
+
+from dto import (
+    CreateCharacterRequestDTO,
+    CreateCharacterResponseDTO,
+    UpdateCharacterAttributesRequestDTO,
+    UpdateCharacterResponseDTO,
+    CharacterAttributesDTO
+)
+from domain import Character, CharacterAttributes, CharacterID
+from repository import CharacterRepositoryJsonFile
+
+ID_SIZE = 12  # must match CharacterID pattern (^char_.{12}$)
+
+
+class IDPrefix(StrEnum):
+    CHARACTER = "char"
+
+
+def generate_id(prefix: IDPrefix) -> str:
+    return f"{prefix}_{generate(size=ID_SIZE)}"
+
+
+class Application:
+    def __init__(self, repo: CharacterRepositoryJsonFile) -> None:
+        self.repo = repo
+
+    def create_character(self, req: CreateCharacterRequestDTO) -> CreateCharacterResponseDTO:
+        new_id: CharacterID = generate_id(IDPrefix.CHARACTER)  # type: ignore[assignment]
+
+        character = Character(
+            id=new_id,
+            name=req.name,
+            health=100,
+            attributes=CharacterAttributes.model_validate(req.attributes.model_dump()),
+        )
+
+        self.repo.add(character)
+
+        return CreateCharacterResponseDTO(
+            id=character.id,
+            name=character.name,
+            health=character.health,
+            attributes=req.attributes,
+        )
+
+    def update_character_attributes(
+        self,
+        character_id: CharacterID,
+        req: UpdateCharacterAttributesRequestDTO,
+    ) -> UpdateCharacterResponseDTO:
+        character = self.repo.get_by_id(character_id)
+        if character is None:
+            raise KeyError("Character not found")
+
+        updated = character.model_copy(
+            update={
+                "attributes": CharacterAttributes.model_validate(
+                    character.attributes.model_dump()
+                    | req.model_dump(exclude_unset=True)
+                )
+            }
+        )
+
+        self.repo.update(updated)
+
+        return UpdateCharacterResponseDTO(
+            id=updated.id,
+            name=updated.name,
+            health=updated.health,
+            attributes=CharacterAttributesDTO.model_validate(updated.attributes),
+        )
+
+    def get_characters(self, character_id: CharacterID | None = None) -> Iterable[Character]:
+        if character_id is not None:
+            character = self.repo.get_by_id(character_id)
+            if character is None:
+                raise KeyError("Character not found")
+            return [character]
+        return self.repo.list_all()
+```
+
+# API apy.py
+```{python}
+#| code-line-numbers: "1-15|18|20-22|25-29|32-40|43-50"
+# api.py
+from typing import Annotated
+
+from fastapi import FastAPI, Query, Path
+
+from application import Application
+from dto import (
+    CreateCharacterRequestDTO,
+    CreateCharacterResponseDTO,
+    CharacterResponseDTO,
+    UpdateCharacterAttributesRequestDTO,
+    UpdateCharacterResponseDTO,
+)
+from domain import CharacterID
+from repository import CharacterRepositoryJsonFile
+
+
+app = FastAPI(title="Characters API")
+
+# Thin wiring: construct dependencies once
+_repo = CharacterRepositoryJsonFile()
+_app = Application(_repo)
+
+
+@app.post("/characters", response_model=CreateCharacterResponseDTO, status_code=201)
+def create_character(
+    payload: CreateCharacterRequestDTO,
+) -> CreateCharacterResponseDTO:
+    return _app.create_character(payload)
+
+
+@app.patch(
+    "/characters/{character_id}/attributes",
+    response_model=UpdateCharacterResponseDTO,
+)
+def update_character_attributes(
+    character_id: Annotated[CharacterID, Path(...)],
+    payload: UpdateCharacterAttributesRequestDTO,
+) -> UpdateCharacterResponseDTO:
+    return _app.update_character_attributes(character_id, payload)
+
+
+@app.get("/characters", response_model=list[CharacterResponseDTO])
+def get_characters(
+    character_id: Annotated[CharacterID | None, Query()] = None,
+) -> list[CharacterResponseDTO]:
+    return [
+        CharacterResponseDTO.model_validate(character)
+        for character in _app.get_characters(character_id)
+    ]
+```
+
+# CLI cli.py
