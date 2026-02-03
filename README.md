@@ -54,7 +54,7 @@ Once the project is running you can access the docs at:
 ### 📦 Quest Resources
 
 - **GitHub Repository:** https://github.com/VoyagerQuests/quest1
-- **Branch:** `part1`
+- **Branch:** `episode1`
 
 ---
 
