@@ -21,7 +21,7 @@
   "workbench.activityBar.location": "hidden",
   "workbench.statusBar.visible": false,
   "workbench.sideBar.location": "right",
-  "workbench.editor.showTabs": "none",
+  "workbench.editor.showTabs": "multiple",
 
   /* Gutter and guides */
   "editor.glyphMargin": false,
@@ -32,7 +32,7 @@
 
   /* Visual noise reduction */
   "breadcrumbs.enabled": false,
-  "editor.hover.enabled": "off",
+  "editor.hover.enabled": "on",
   "editor.parameterHints.enabled": false,
   "editor.codeLens": false,
 
@@ -56,11 +56,28 @@
   "workbench.panel.defaultLocation": "bottom",
   "terminal.integrated.defaultProfile.osx": "zsh",
 
+  // Showing when last updated
+  "gitlens.currentLine.enabled": false,
+
 
 
   /* Prevent auto-opening other views */
 "debug.internalConsoleOptions": "neverOpen",
 //  "terminal.integrated.defaultLocation": "editor",
-  
 
+// Cursor
+"editor.cursorBlinking": "solid",
+
+// Color Theme
+"workbench.colorTheme": "Default Dark Modern",
+
+"files.exclude": {
+  "**/.git": true,
+  "**/.vscode": true,
+  "**/.env": true,
+  "**/.DS_Store": true,
+  "**/.*": true,
+  "**/__pycache__": true,
+  "**/*.egg-info": true,
+}
 }
