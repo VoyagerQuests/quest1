@@ -61,8 +61,9 @@ class CharacterResponseDTO(CreateCharacterResponseDTO):
     pass
 
 
-class UpdateCharacterAttributesRequestDTO(CharacterAttributesDTO):
+class UpdateCharacterAttributesRequestDTO(DTO):
     """Data Transfer Object for updating a character's attribute"""
+
     might: CharacterMight | None = None
     agility: CharacterAgility | None = None
     vitality: CharacterVitality | None = None
