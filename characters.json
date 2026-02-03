@@ -24,57 +24,5 @@
         },
         "id": "char_G7h8I9j0K1l2",
         "health": 88
-    },
-    {
-        "name": "Example123456",
-        "attributes": {
-            "might": 50,
-            "agility": 50,
-            "vitality": 50,
-            "insight": 50,
-            "arcana": 50,
-            "presence": 50
-        },
-        "id": "char_gQ0sk55qGnsQ",
-        "health": 100
-    },
-    {
-        "name": "stringstri",
-        "attributes": {
-            "might": 100,
-            "agility": 100,
-            "vitality": 100,
-            "insight": 100,
-            "arcana": 100,
-            "presence": 100
-        },
-        "id": "char_XbmvX3OvfWov",
-        "health": 100
-    },
-    {
-        "name": "stringstri",
-        "attributes": {
-            "might": 100,
-            "agility": 100,
-            "vitality": 100,
-            "insight": 100,
-            "arcana": 100,
-            "presence": 100
-        },
-        "id": "char_1AAjXjK_yJro",
-        "health": 100
-    },
-    {
-        "name": "stringstri",
-        "attributes": {
-            "might": 100,
-            "agility": 100,
-            "vitality": 100,
-            "insight": 100,
-            "arcana": 100,
-            "presence": 100
-        },
-        "id": "char_fckTPe8wQwLi",
-        "health": 100
     }
 ]
