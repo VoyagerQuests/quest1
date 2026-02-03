@@ -1,0 +1,28 @@
+---
+title: "Mastering Python Type Hints"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: fade
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+
+# Domain Models and Annotated Types
+
+# Data Transfer Objects (DTOs)
+
+# Application Use-Cases
+
+# Repository
+
+# API
+
+# CLI

@@ -1,0 +1,5 @@
+# _quarto.yml Configures the Quarto Execution Environment
+
+# Avoid storing output files in the same directory as source files
+project:
+  output-dir: .quarto/_output

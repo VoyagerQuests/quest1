@@ -1,0 +1,28 @@
+---
+title: "Mastering Python Type Hints"
+format:
+  revealjs:
+    width: 1600
+    height: 1200
+    margin: 0.1
+    css: styles.css
+    transition: fade
+    transition-speed: fast
+    execute:
+      echo: true
+      ansi: false
+      error: true
+theme: dark
+---
+
+# Foundational Types and Collections
+
+# Unions, Optional and Collection Type ABCs
+
+# Literal & Typeddict
+
+# TypedDict | Literal to Pydantic
+
+# Behavioral and Generic Typing
+
+# What has changed in Python 3.14

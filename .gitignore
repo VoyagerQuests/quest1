@@ -1,11 +1,83 @@
-# Python-generated files
+# =========================
+# Python
+# =========================
 __pycache__/
-*.py[oc]
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
 build/
 dist/
 wheels/
-*.egg-info
+pip-wheel-metadata/
 
 # Virtual environments
-.venv
-.vscode
+.venv/
+venv/
+ENV/
+env/
+
+# =========================
+# uv
+# =========================
+.uv/
+uv.lock
+
+# =========================
+# Ruff
+# =========================
+.ruff_cache/
+
+# =========================
+# FastAPI / general runtime
+# =========================
+.env
+.env.*
+*.log
+
+# =========================
+# Testing / coverage
+# =========================
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =========================
+# VS Code
+# =========================
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# =========================
+# Type checking
+# =========================
+.mypy_cache/
+.pyright/
+.pytype/
+
+# =========================
+# OS / editor junk
+# =========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# =========================
+# Docs / tooling
+# =========================
+.site/
+.cache/
+
+# =========================
+# Quarto
+# =========================
+.quarto/
+**/*.quarto_ipynb

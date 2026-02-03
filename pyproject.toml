@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard]>=0.124.4",
+    "fire>=0.6.0",
     "nanoid>=2.0.0",
     "pydantic>=2.12.5",
     "pytest>=9.0.2",
@@ -14,3 +15,5 @@ dependencies = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+

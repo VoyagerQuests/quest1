@@ -48,6 +48,29 @@ Once the project is running you can access the docs at:
 👉 http://127.0.0.1:8000/docs
 👉 http://127.0.0.1:8000/redoc
 
+------------------------------------------------------------------------
+
+#### 4️⃣ Run the CLI
+
+Examples (run from the project root):
+
+``` bash
+# Create a character
+uv run python cli.py create --name "Aria Stormblade" --Might 70 --Agility 80 --Vitality 60 --Insight 75 --Arcana 40 --Presence 85
+
+# List all characters
+uv run python cli.py get
+
+# Update attributes
+uv run python cli.py update_attributes --character_id char_XXXXXXXXXXXX --Might 10 --Agility 20 --Vitality 30 --Insight 40 --Arcana 50 --Presence 60
+
+# Get a single character by id
+uv run python cli.py get --character_id char_XXXXXXXXXXXX
+```
+
+Notes:
+- Attribute flags are case-insensitive.
+- The CLI uses `characters.json` in the project root for storage.
 
 ---
 

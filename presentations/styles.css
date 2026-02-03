@@ -1,0 +1,122 @@
+
+/* Source code height and font size adjustments */
+
+.reveal pre.sourceCode code {
+  font-size: 1.13em !important; 
+  max-height: 1000px !important;
+}
+
+/* Source code padding and scrollbar */
+.reveal .sourceCode {
+    padding: 1px !important;
+    scrollbar-width: none;
+}
+
+/* Output section images adjustments */
+.output_section_image {
+    width: 70% !important;
+    height: auto !important;
+    max-height: 400px !important;
+    display: block !important;
+    margin: auto !important;
+}
+
+/* Adjust cell output styling for better visibility */
+.cell-output {
+    padding-top: 20px;
+    margin-left: 80px;
+}
+
+.reveal pre code {
+    max-height: 600px !important;
+}
+
+/* Increase font size and line height for better readability */
+.cell-output pre {
+    font-size: 1.6rem;   /* or 18px, 1.2em, etc. */
+    line-height: 2.5;
+}
+
+/* ANSI color overrides to make sure background is transparent */
+.ansi-yellow-bg,
+.ansi-bright-yellow-bg,
+.ansi-inverse,
+.ansi-default-inverse-bg {
+  background: transparent !important;
+}
+
+.cell-output-error pre {
+    border: solid red;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    padding: 5px;
+      overflow: hidden;
+  overflow-wrap: break-word;
+  /* max-height: 400px; */
+}   
+
+.cell-output-error pre::before {
+    content: "RUNTIME ERROR \A";
+    font-weight: bold;
+    color: red;
+}
+
+.code-annotation-target {
+    display: block;
+    border: 2px solid orange;
+    background: rgba(255, 165, 0, 0.5);
+    padding: 0.5em;
+    border-radius: 6px;
+}
+
+[data-code-annotation] {
+    font-size: 2rem;
+    color: orange;
+}
+
+.sourceCode {
+    /* margin-left: 40px; */
+    padding-left: 40px;
+}
+
+/* Adjust font size for code annotations icon (side) */
+a.code-annotation-anchor,
+a.code-annotation-anchor:link,
+a.code-annotation-anchor:visited,
+a.code-annotation-anchor:hover,
+a.code-annotation-anchor:active {
+    color: orange !important;
+
+    font-size: 1.5rem !important;
+    float: right;
+    margin-right: 10px;
+    /* margin-right: 10px; */
+    /* nav-left: -10px; */
+}
+
+/* Adjust font size for code annotations icon (bottom) */
+[data-target-cell] {
+    color: orange !important;
+    border: 2px solid orange !important;
+    font-size: 1.1rem !important;
+}
+
+/* Adjust font size for code annotations */
+[data-code-annotation] {
+    font-size: 1.4rem !important;
+    line-height: 1rem !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+/* Adjust font size for code annotations */
+.cell-annotation dt {
+  position: relative;
+  top: 0.15em;   /* ← adjust this */
+    font-size: 1.5rem !important;
+}
+
+/* Adjust title text center */
+.title-slide {
+    text-align: center !important;
+}
