@@ -24,5 +24,18 @@
         },
         "id": "char_G7h8I9j0K1l2",
         "health": 88
+    },
+    {
+        "name": "Aria Stormblade",
+        "attributes": {
+            "might": 70,
+            "agility": 80,
+            "vitality": 60,
+            "insight": 75,
+            "arcana": 40,
+            "presence": 85
+        },
+        "id": "char_rT4KhRhogioB",
+        "health": 100
     }
 ]
