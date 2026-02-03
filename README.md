@@ -60,3 +60,4 @@ Once the project is running you can access the docs at:
 
 ## 🧩 Quest Overview
 
+This episode's instructions are detailed in [READQUEST.md](READQUEST.md) in this repository.
