@@ -6,7 +6,7 @@ Now that your API is functional, refactor it to make full use of **Python type h
 
 Watch the [**Mastering Python Type Hints**](https://youtu.be/q7GjjwnenZ4) video and apply the concepts to improve type safety, validation, and documentation across your codebase. Also start adding some structure and tests to your code as defined in sections 5 and 6 below.
 
-Your goal is to clearly separate concerns between the API (delivery layer) and the domain (application logic), while enforcing constraints consistently at runtime and in generated documentation.
+Your goal is to clearly separate concerns between the API (delivery layer) and the inner layers of your app (use-cases and domain logic), while enforcing constraints consistently at runtime and in generated documentation. Outer layers should not interact directly with inner layers.
 
 ---
 
@@ -104,6 +104,7 @@ By completing this quest, you will learn:
 - How FastAPI generates OpenAPI documentation from type hints and annotations  
 - How to design a clean boundary between API, DTOs, and domain logic  
 - Why enforcing domain rules outside the web framework is critical for correctness
+- Experiment with writing tests
 
 ---
 
@@ -111,5 +112,5 @@ By completing this quest, you will learn:
 
 - Invalid input is rejected both via the API and via direct domain calls  
 - OpenAPI documentation clearly shows constraints and field descriptions  
-- `api.py` contains no business rules  
+- `api.py` contains no business rules / domain logic 
 - Domain logic is reusable, testable, and framework-independent
