@@ -14,7 +14,6 @@ CHARACTERS_FILE: Final = Path("characters.json")
 
 class CharacterSchema(CharacterBaseDTO):
     id: CharacterID
-    health: CharacterHealth
 
 
 class CharacterRepositoryJsonFile:

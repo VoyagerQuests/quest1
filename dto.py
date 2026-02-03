@@ -40,6 +40,7 @@ class CharacterBaseDTO(DTO):
     """Data Transfer Object for character base information"""
 
     name: CharacterName
+    health: CharacterHealth = 100
     attributes: CharacterAttributesDTO
 
 class CreateCharacterRequestDTO(CharacterBaseDTO):
@@ -52,7 +53,6 @@ class CreateCharacterResponseDTO(CharacterBaseDTO):
     """Data Transfer Object for returning character data"""
 
     id: CharacterID
-    health: CharacterHealth
 
 
 class CharacterResponseDTO(CreateCharacterResponseDTO):
