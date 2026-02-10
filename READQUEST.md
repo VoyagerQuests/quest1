@@ -21,7 +21,7 @@ Your goal is to clearly separate concerns between the API (delivery layer) and t
 
 ### 2\. Pydantic Models & Validation
 
-- Use **Pydantic models** for all Data Transfer Objects (DTOs).  
+- Use **Pydantic models** for all Data Transfer Objects (DTOs) 
 - Enforce the following constraints at runtime:  
   - `health` must be an integer between **1 and 100**  
   - `attributes` values must be integers between **1 and 100**  
@@ -33,15 +33,16 @@ Your goal is to clearly separate concerns between the API (delivery layer) and t
 
 - The generated API documentation must:  
   - Display all field descriptions  
-  - Display validation constraints (e.g. min/max values)  
-- Documentation should be automatically derived from type hints and `Annotated` metadata.
+  - Display validation constraints (e.g. min/max values)
+  - Display example schemas of what data you should send in / will receive
+- Documentation should be automatically derived from type hints and `Annotated` metadata
 
 ### 4\. Data Transfer Objects (DTOs)
 
 - Implement explicit DTOs using Pydantic to transfer data:  
   - From the Delivery Layer layer (`api.py`)  
-  - Into the domain/use-case logic (`domain.py`)  
-- DTOs should clearly define the boundary between delivery and domain layers.
+  - Into the application logic (`application.py`)  
+- DTOs should clearly define the boundary between delivery and inner layers
 
 ### 5\. Code Structure
 
@@ -51,23 +52,22 @@ Structure your code into these **source files**:
     
   - FastAPI application  
   - Route definitions  
-  - Mapping between DTOs and domain logic
+  - Mapping to and from DTOs
   - FastAPI code should only exist here
+  - Inner layers should not know about FastAPI
 
 - **`domain.py`**  
     
   - Define domain types using Annotated Types
   - Domain models and value objects  
   - Business rules and invariants  
-  - Application/use-case logic  
-  - Request and response DTOs  
-  - No FastAPI-specific code
+  - No FastAPI or CLI code
 
 - **`application.py`**  
       
   - Application/use-case logic  
-  - This code interacts with the domain models and value objects.
-  - Receives data from the api via DTO objects.
+  - This code interacts with the domain models and value objects
+  - Receives data from the api via DTO objects
   - Instantiates objects
   - Interacts with the repository
 
@@ -82,15 +82,15 @@ Structure your code into these **source files**:
 
 ### 6\. Add Some Tests
 
-- Use pytest to add some tests using pytest
+- Use pytest to add some tests
 
 ---
 
 ## ⭐ Bonus Challenge
 
-- Create a **command-line interface (CLI)** that can interact directly with your domain logic using the same request and response DTOs.  
-- The CLI should call domain/use-case functions directly.  
-- The same validation rules must apply as in the API.
+- Create a **command-line interface (CLI)** that can interact directly with your domain logic using the same request and response DTOs 
+- The CLI should interact with inner layers in a way similar to FastAPI 
+- Keep the CLI as thin as possible and let the DTOs do the validation work for you
 
 ---
 
