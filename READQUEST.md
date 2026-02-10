@@ -60,7 +60,7 @@ Structure your code into these **source files**:
     
   - Define domain types using Annotated Types
   - Domain models and value objects  
-  - Business rules and invariants  
+  - Domain object rules and invariants  
   - No FastAPI or CLI code
 
 - **`application.py`**  
@@ -70,15 +70,19 @@ Structure your code into these **source files**:
   - Receives data from the api via DTO objects
   - Instantiates objects
   - Interacts with the repository
+  - No FastAPI or CLI specific code
 
 - **`dto.py`**  
     
   - Data Transfer Object definitions
+  - No FastAPI, CLI code
 
 - **`repository.py`**  
     
   - Any code which interacts with the json file
   - Retrieves and stores characters
+  - No FastAPI or CLI code
+  - No Application or Business Rules
 
 ### 6\. Add Some Tests
 
