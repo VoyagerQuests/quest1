@@ -4,14 +4,14 @@ from typing import Iterable, Protocol
 
 from nanoid import generate
 
-from dto import (
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     CreateCharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
     CharacterAttributesDTO
 )
-from domain import Character, CharacterAttributes, CharacterID
+from quest1.domain.domain import Character, CharacterAttributes, CharacterID
 
 ID_SIZE = 12  # must match CharacterID pattern (^char_.{12}$)
 

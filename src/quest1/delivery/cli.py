@@ -4,13 +4,13 @@ from typing import Any
 
 import fire
 
-from application import Application
-from dto import (
+from quest1.application.usecases.application import Application
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     UpdateCharacterAttributesRequestDTO,
     CharacterAttributesDTO,
 )
-from repository import CharacterRepositoryJsonFile
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 sys.tracebacklimit = 0  # Hide traceback for cleaner CLI output

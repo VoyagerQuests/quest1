@@ -3,16 +3,16 @@ from typing import Annotated
 
 from fastapi import FastAPI, Query, Path
 
-from application import Application
-from dto import (
+from quest1.application.usecases.application import Application
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     CreateCharacterResponseDTO,
     CharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
 )
-from domain import CharacterID
-from repository import CharacterRepositoryJsonFile
+from quest1.domain.domain import CharacterID
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 app = FastAPI(title="Characters API")

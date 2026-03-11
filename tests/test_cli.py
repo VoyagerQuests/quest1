@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-import cli
-from repository import CharacterRepositoryJsonFile
+from quest1.delivery import cli
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 @pytest.fixture

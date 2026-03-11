@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-import api
-from application import Application
-from repository import CharacterRepositoryJsonFile
+from quest1.delivery import api
+from quest1.application.usecases.application import Application
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 @pytest.fixture

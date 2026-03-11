@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from domain import Character
-from repository import CharacterRepositoryJsonFile
+from quest1.domain.domain import Character
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 def make_character(

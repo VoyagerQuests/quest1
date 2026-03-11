@@ -83,7 +83,7 @@ class Character(BaseModel):
 # dto.py
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
-from domain import (
+from quest1.domain.domain import (
     CharacterMight,
     CharacterAgility,
     CharacterVitality,
@@ -172,8 +172,8 @@ import json
 
 from pydantic import TypeAdapter, ValidationError
 
-from domain import Character, CharacterID, CharacterHealth
-from dto import CharacterBaseDTO
+from quest1.domain.domain import Character, CharacterID, CharacterHealth
+from quest1.application.dtos.dto import CharacterBaseDTO
 
 
 CHARACTERS_FILE: Final = Path("characters.json")
@@ -253,15 +253,15 @@ from typing import Iterable
 
 from nanoid import generate
 
-from dto import (
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     CreateCharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
     CharacterAttributesDTO
 )
-from domain import Character, CharacterAttributes, CharacterID
-from repository import CharacterRepositoryJsonFile
+from quest1.domain.domain import Character, CharacterAttributes, CharacterID
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 ID_SIZE = 12  # must match CharacterID pattern (^char_.{12}$)
 
@@ -341,16 +341,16 @@ from typing import Annotated
 
 from fastapi import FastAPI, Query, Path
 
-from application import Application
-from dto import (
+from quest1.application.usecases.application import Application
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     CreateCharacterResponseDTO,
     CharacterResponseDTO,
     UpdateCharacterAttributesRequestDTO,
     UpdateCharacterResponseDTO,
 )
-from domain import CharacterID
-from repository import CharacterRepositoryJsonFile
+from quest1.domain.domain import CharacterID
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 app = FastAPI(title="Characters API")
@@ -398,13 +398,13 @@ from typing import Any
 
 import fire
 
-from application import Application
-from dto import (
+from quest1.application.usecases.application import Application
+from quest1.application.dtos.dto import (
     CreateCharacterRequestDTO,
     UpdateCharacterAttributesRequestDTO,
     CharacterAttributesDTO,
 )
-from repository import CharacterRepositoryJsonFile
+from quest1.infrastructure.repo.repository import CharacterRepositoryJsonFile
 
 
 sys.tracebacklimit = 0  # Hide traceback for cleaner CLI output

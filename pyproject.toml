@@ -14,12 +14,14 @@ dependencies = [
 ]
 
 [project.scripts]
-character = "cli:main"
+character = "quest1.delivery.cli:main"
 
 [tool.setuptools]
-packages = []
-py-modules = ["cli", "api", "application", "domain", "dto", "repository"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["src"]
 testpaths = ["tests"]

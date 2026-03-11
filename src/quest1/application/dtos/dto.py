@@ -1,7 +1,7 @@
 # dto.py
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
-from domain import (
+from quest1.domain.domain import (
     CharacterMight,
     CharacterAgility,
     CharacterVitality,

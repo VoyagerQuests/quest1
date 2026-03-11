@@ -5,8 +5,8 @@ import json
 
 from pydantic import TypeAdapter, ValidationError
 
-from domain import Character, CharacterID, CharacterHealth
-from dto import CharacterBaseDTO
+from quest1.domain.domain import Character, CharacterID, CharacterHealth
+from quest1.application.dtos.dto import CharacterBaseDTO
 
 
 CHARACTERS_FILE: Final = Path("characters.json")
