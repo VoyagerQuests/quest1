@@ -17,5 +17,5 @@ Check out the Episode 1 walkthrough video on https://www.youtube.com/@VoyagerQue
 
 ## 🧩 Quest Overview
 
-This episode's instructions are detailed in [READQUEST2.md](READQUEST.md) in this branch.
-If you are ready to start with the next episode use this code as a base and start with [READQUEST3.md](READQUEST.md) in this branch.
+This episode's instructions are detailed in [READQUEST2.md](READQUEST2.md) in this branch.
+If you are ready to start with the next episode use this code as a base and start with [READQUEST3.md](READQUEST3.md) in this branch.
