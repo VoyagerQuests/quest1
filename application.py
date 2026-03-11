@@ -1,6 +1,6 @@
 # application.py
 from enum import StrEnum
-from typing import Iterable
+from typing import Iterable, Protocol
 
 from nanoid import generate
 
@@ -12,7 +12,6 @@ from dto import (
     CharacterAttributesDTO
 )
 from domain import Character, CharacterAttributes, CharacterID
-from repository import CharacterRepositoryJsonFile
 
 ID_SIZE = 12  # must match CharacterID pattern (^char_.{12}$)
 
@@ -25,8 +24,25 @@ def generate_id(prefix: IDPrefix) -> str:
     return f"{prefix}_{generate(size=ID_SIZE)}"
 
 
+class CharacterRepository(Protocol):
+    def list_all(self) -> list[Character]:
+        ...
+
+    def get_by_id(self, character_id: CharacterID) -> Character | None:
+        ...
+
+    def add(self, character: Character) -> None:
+        ...
+
+    def update(self, character: Character) -> None:
+        ...
+
+    def delete(self, character_id: CharacterID) -> None:
+        ...
+
+
 class Application:
-    def __init__(self, repo: CharacterRepositoryJsonFile) -> None:
+    def __init__(self, repo: CharacterRepository) -> None:
         self.repo = repo
 
     def create_character(self, req: CreateCharacterRequestDTO) -> CreateCharacterResponseDTO:
